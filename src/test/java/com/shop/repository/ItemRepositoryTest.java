@@ -13,6 +13,7 @@ import java.util.List;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
+@DisplayName("테스트 전체")
 class ItemRepositoryTest {
 
     @Autowired
@@ -52,6 +53,36 @@ class ItemRepositoryTest {
     public void findByItemNmTest(){
         this.createItemList();
         List<Item> itemList = itemRepository.findByItemNm("테스트 상품1");
+        for(Item item : itemList){
+            System.out.println(item.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("상품명 , 상품 상세설명 OR TEST")
+    public void findByItemOrItemDetailTest(){
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByItemNmOrItemDetail("테스트 상품1" , "테스트 상품 설명4");
+        for(Item item : itemList){
+            System.out.println(item.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("Less Than 메소드 테스트")
+    public void findByLessThanItemTest(){
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByPriceLessThan(10002);
+        for(Item item : itemList){
+            System.out.println(item.toString());
+        }
+    }
+
+    @Test
+    @DisplayName("Less Than + Order By 테스트")
+    public void findByLessThanItemOrderByTest(){
+        this.createItemList();
+        List<Item> itemList = itemRepository.findByPriceLessThanOrderByPrice(10007);
         for(Item item : itemList){
             System.out.println(item.toString());
         }
