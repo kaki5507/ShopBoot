@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.test.context.TestPropertySource;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +19,7 @@ class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+
 
     @Test
     @DisplayName("상품 저장 테스트")
@@ -108,5 +108,12 @@ class ItemRepositoryTest {
         for(Item item : itemList){
             System.out.println(item.toString());
         }
+    }
+
+    @Test
+    @DisplayName("Querydsl 설정 조회 테스트")
+    public void queryDslTest(){
+        this.createItemList();
+
     }
 }
