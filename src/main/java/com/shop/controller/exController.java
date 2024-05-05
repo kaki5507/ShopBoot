@@ -44,4 +44,9 @@ public class exController {
         model.addAttribute("itemList", itemDtoList);
         return "ex/ex02";
     }
+
+    @GetMapping(value = "/ex03")
+    public String ex03(Model model){
+        return "ex/ex03";
+    }
 }
