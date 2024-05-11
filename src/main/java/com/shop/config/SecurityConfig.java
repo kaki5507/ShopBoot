@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -24,13 +25,21 @@ public class SecurityConfig {
                                 .requestMatchers("/resources/**").permitAll()
                                 .requestMatchers("/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                                /*
-                                .requestMatchers("/db/**").access(new WebExpressionAuthorizationManager("hasRole('ADMIN') and hasRole('DBA')"))
-                                // .requestMatchers("/db/**").access(AuthorizationManagers.allOf(AuthorityAuthorizationManager.hasRole("ADMIN"), AuthorityAuthorizationManager.hasRole("DBA")))
-                                */
                                 .requestMatchers("/members/**").permitAll()
                                 .anyRequest().denyAll()
-                );
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/members/login")
+                        .defaultSuccessUrl("/")
+                        .usernameParameter("email")
+                        .failureUrl("/members/login/error")
+                )
+                .logout(logoutConfig -> logoutConfig
+                        .logoutRequestMatcher(new AntPathRequestMatcher("members/logout"))
+                        .logoutSuccessUrl("/")
+                )
+        ;
+
         return http.build();
     }
 
@@ -38,4 +47,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
 }
