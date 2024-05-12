@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <div th:fragment="header" class="container">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -13,43 +14,27 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="ex/ex03">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                         <a class="nav-link" href="/admin/item/new">상품 등록</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                         <a class="nav-link" href="/admin/items">상품 관리</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" href="/cart">장바구니</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" href="/orders">구매이력</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link" href="/members/login">로그인</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link" href="/members/logout">로그아웃</a>
                     </li>
 
-                    <!--
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                    -->
                 </ul>
-                <form class="d-flex col-md-4" role="search">
+                <form class="d-flex col-md-4" role="search" th:action="@{/}" method="get">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
