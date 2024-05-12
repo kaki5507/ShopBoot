@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .failureUrl("/members/login/error")
                 )
                 .logout(logoutConfig -> logoutConfig
-                        .logoutRequestMatcher(new AntPathRequestMatcher("members/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                         .logoutSuccessUrl("/")
                 )
         ;
