@@ -56,7 +56,7 @@ class CartTest {
         em.clear(); // 실제 db에서 장바구니 엔티티를 가져 올 때 회원 엔티티도 같이 가져오는지 위해서 비워줌.
 
         Cart savedCart = cartRepository.findById(cart.getId()) // 카트 생성해서 저장된 아이디 가져옴
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(EntityNotFoundException::new); //cart.getId 없으면 해당 익셉션 날리는 것
         assertEquals(savedCart.getMember().getId(), member.getId());
 
     }
