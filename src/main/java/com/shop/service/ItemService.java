@@ -2,6 +2,7 @@ package com.shop.service;
 
 import com.shop.dto.ItemFormDto;
 import com.shop.entity.Item;
+import com.shop.entity.ItemImg;
 import com.shop.repository.ItemImgRepository;
 import com.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,19 @@ public class ItemService {
         itemRepository.save(item);
 
         // 이미지 등록
-        for(int i=0; i<itemImgFileList.size(); i++){
+        for(int i=0; i<itemImgFileList.size(); i++) {
+            ItemImg itemImg = new ItemImg();
+            itemImg.setItem(item);
+
+            if(i == 0){
+                itemImg.setRepimgYn("Y"); // 대표이미지 여부
+            }else{
+                itemImg.setRepimgYn("N");
+            }
+
+            itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
+
+        return item.getId();
+    }
 }
