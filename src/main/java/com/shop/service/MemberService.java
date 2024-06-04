@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService { // 멤버 서비스
 
     private final MemberRepository memberRepository;
 
     public Member saveMember(Member member){
-        validateDuplicateMember(member);
+        validateDuplicateMember(member);         // 유효성 체크
         return memberRepository.save(member);
     }
 

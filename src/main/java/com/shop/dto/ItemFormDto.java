@@ -36,7 +36,7 @@ public class ItemFormDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public Item creaItem(){
+    public Item creatItem(){
         return modelMapper.map(this, Item.class); // Item 클래스 모델에 담어서 생성
     }
 
